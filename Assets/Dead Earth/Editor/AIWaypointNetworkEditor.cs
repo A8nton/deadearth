@@ -8,6 +8,19 @@ using UnityEngine.UI;
 [CustomEditor(typeof(AIWaypointsNetwork))]
 public class AIWaypointNetworkEditor : Editor {
 
+
+    public override void OnInspectorGUI() {
+        AIWaypointsNetwork network = (AIWaypointsNetwork)target;
+        network.DisplayMode = (PathDisplayMode)EditorGUILayout.EnumPopup("Display mode", network.DisplayMode);
+
+        if (network.DisplayMode == PathDisplayMode.Paths) {
+            network.UiStart = EditorGUILayout.IntSlider("Waypoint start", network.UiStart, 0, network.Waypoints.Count - 1);
+            network.UiEnd = EditorGUILayout.IntSlider("Waypoint end", network.UiEnd, 0, network.Waypoints.Count - 1);
+        }
+        DrawDefaultInspector();
+        EditorUtility.SetDirty(target);
+    }
+
     void OnSceneGUI() {
         AIWaypointsNetwork network = (AIWaypointsNetwork)target;
         GUIStyle guiStyle = new GUIStyle();
