@@ -53,7 +53,7 @@ public class NavAgentExample : MonoBehaviour {
         _pathPending = _navAgent.pathPending;
         _pathStatus = _navAgent.pathStatus;
 
-        if (!_hasPath && !_pathPending) {
+        if ((_navAgent.remainingDistance <= _navAgent.stoppingDistance && !_pathPending) || _pathStatus == NavMeshPathStatus.PathInvalid) {
             SetNextDestination(true);
         } else if (_navAgent.isPathStale) {
             SetNextDestination(false);
