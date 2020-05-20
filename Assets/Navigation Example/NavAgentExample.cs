@@ -17,6 +17,8 @@ public class NavAgentExample : MonoBehaviour {
     private bool _pathPending;
     [SerializeField]
     private NavMeshPathStatus _pathStatus;
+    [SerializeField]
+    private AnimationCurve _jumpCurve = new AnimationCurve();
     private NavMeshAgent _navAgent;
 
     void Start() {
@@ -59,7 +61,7 @@ public class NavAgentExample : MonoBehaviour {
             SetNextDestination(false);
         }
         if (_navAgent.isOnOffMeshLink) {
-            StartCoroutine(JumpCoroutine(2.0f));
+            StartCoroutine(JumpCoroutine(1.0f));
             return;
         }
     }
@@ -72,7 +74,7 @@ public class NavAgentExample : MonoBehaviour {
 
         while(time <= duration) {
             float t = time / duration;
-            _navAgent.transform.position = Vector3.Lerp(startPos, endPos, t);
+            _navAgent.transform.position = Vector3.Lerp(startPos, endPos, t) + (_jumpCurve.Evaluate(t) * Vector3.up);
             time += Time.deltaTime;
             yield return null;
         }

@@ -158,6 +158,12 @@ MonoBehaviour:
   _hasPath: 0
   _pathPending: 0
   _pathStatus: 0
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!195 &47988763
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -492,6 +498,39 @@ MonoBehaviour:
   _hasPath: 0
   _pathPending: 0
   _pathStatus: 0
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0027618408
+      value: 0
+      inSlope: 4.0222173
+      outSlope: 4.0222173
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 2
+      inSlope: 0.0037574768
+      outSlope: 0.0037574768
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99816895
+      value: 0
+      inSlope: -4.0147023
+      outSlope: -4.0147023
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &262802910
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +568,12 @@ MonoBehaviour:
   _hasPath: 0
   _pathPending: 0
   _pathStatus: 0
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!195 &262802912
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -649,6 +694,12 @@ MonoBehaviour:
   _hasPath: 0
   _pathPending: 0
   _pathStatus: 0
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!195 &430521417
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2484,6 +2535,12 @@ MonoBehaviour:
   _hasPath: 0
   _pathPending: 0
   _pathStatus: 0
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!195 &1533716650
 NavMeshAgent:
   m_ObjectHideFlags: 0
