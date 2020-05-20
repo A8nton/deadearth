@@ -58,5 +58,24 @@ public class NavAgentExample : MonoBehaviour {
         } else if (_navAgent.isPathStale) {
             SetNextDestination(false);
         }
+        if (_navAgent.isOnOffMeshLink) {
+            StartCoroutine(JumpCoroutine(2.0f));
+            return;
+        }
+    }
+
+    IEnumerator JumpCoroutine(float duration) {
+        OffMeshLinkData data = _navAgent.currentOffMeshLinkData;
+        Vector3 startPos = _navAgent.transform.position;
+        Vector3 endPos = data.endPos + (_navAgent.baseOffset * Vector3.up);
+        float time = 0;
+
+        while(time <= duration) {
+            float t = time / duration;
+            _navAgent.transform.position = Vector3.Lerp(startPos, endPos, t);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        _navAgent.CompleteOffMeshLink();
     }
 }
