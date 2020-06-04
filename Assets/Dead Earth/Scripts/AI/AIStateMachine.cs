@@ -74,9 +74,21 @@ public abstract class AIStateMachine : MonoBehaviour {
         _animator = GetComponent<Animator>();
         _navAgent = GetComponent<NavMeshAgent>();
         _collider = GetComponent<Collider>();
+
+        if (GameSceneManager.instance != null) {
+            if (_collider)
+                GameSceneManager.instance.RegisterAIStateMachine(_collider.GetInstanceID(), this);
+            if (_sensorTrigger)
+                GameSceneManager.instance.RegisterAIStateMachine(_sensorTrigger.GetInstanceID(), this);
+        }
     }
 
     protected virtual void Start() {
+        if (_sensorTrigger != null) {
+            AISensor script = _sensorTrigger.GetComponent<AISensor>();
+            if (script != null)
+                script.parentStateMachine = this;
+        }
         AIState[] states = GetComponents<AIState>();
 
         foreach (AIState state in states)
@@ -158,5 +170,26 @@ public abstract class AIStateMachine : MonoBehaviour {
                 _currentState = newState;
             }
         }
+    }
+
+    public virtual void OnTriggerEnter(Collider other) {
+        if (_targetTrigger == null || other != _targetTrigger)
+            return;
+
+        if (_currentState)
+            _currentState.OnDestinationReached(true);
+    }
+
+    public virtual void OnTriggerExit(Collider other) {
+        if (_targetTrigger == null || other != _targetTrigger)
+            return;
+
+        if (_currentState)
+            _currentState.OnDestinationReached(false);
+    }
+
+    public virtual void OnTriggerEvent(AITriggerEventType type, Collider other) {
+        if (_currentState)
+            _currentState.OnTriggerEvent(type, other);
     }
 }
