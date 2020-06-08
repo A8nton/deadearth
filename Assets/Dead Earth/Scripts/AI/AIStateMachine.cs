@@ -239,7 +239,7 @@ public abstract class AIStateMachine : MonoBehaviour {
             _currentState.OnAnimatorIKUpdated();
     }
 
-    public void NavAgentConrol(bool positionUpdate, bool rotationUpdate) {
+    public void NavAgentControl(bool positionUpdate, bool rotationUpdate) {
         if (_navAgent) {
             _navAgent.updatePosition = positionUpdate;
             _navAgent.updateRotation = rotationUpdate;
