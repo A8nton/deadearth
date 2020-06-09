@@ -3581,6 +3581,13 @@ MonoBehaviour:
   _sensorTrigger: {fileID: 1808668049}
   _stoppingDistance: 1
   _currentStateType: 1
+  _fieldOfView: 50
+  _sight: 0.5
+  _hearing: 1
+  _aggression: 0.5
+  _health: 100
+  _intelligence: 0.5
+  _satisfaction: 0.5
 --- !u!1 &1533716648
 GameObject:
   m_ObjectHideFlags: 0
