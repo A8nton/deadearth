@@ -10,7 +10,7 @@ public abstract class AIZombieState : AIState {
 
     public void Awake() {
         _playerLayerMask = LayerMask.GetMask("Player", "AI Body Part") +1;
-        _bodyPartLayer = LayerMask.GetMask("AI Body Part");
+        _bodyPartLayer = LayerMask.NameToLayer("AI Body Part");
     }
 
     public override void OnTriggerEvent(AITriggerEventType eventType, Collider other) {
