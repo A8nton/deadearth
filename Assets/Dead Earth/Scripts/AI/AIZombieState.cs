@@ -7,27 +7,34 @@ public abstract class AIZombieState : AIState {
 
     protected int _playerLayerMask = -1;
     protected int _bodyPartLayer = -1;
+    protected AIZombieStateMachine _zombieStateMachine;
 
     public void Awake() {
-        _playerLayerMask = LayerMask.GetMask("Player", "AI Body Part") +1;
+        _playerLayerMask = LayerMask.GetMask("Player", "AI Body Part") + 1;
         _bodyPartLayer = LayerMask.NameToLayer("AI Body Part");
     }
 
+    public override void SetStateMachine(AIStateMachine stateMachine) {
+        if (_stateMachine.GetType() == typeof(AIZombieStateMachine)) {
+            _zombieStateMachine = (AIZombieStateMachine)stateMachine;
+        }
+    }
+
     public override void OnTriggerEvent(AITriggerEventType eventType, Collider other) {
-        if (_stateMachine == null)
+        if (_zombieStateMachine == null)
             return;
 
         if (eventType != AITriggerEventType.Exit) {
-            AITargetType curType = _stateMachine.VisualThreat.type;
-            if (other.CompareTag ("Player")) {
-                float distance = Vector3.Distance(_stateMachine.sensorPosition, other.transform.position);
+            AITargetType curType = _zombieStateMachine.VisualThreat.type;
+            if (other.CompareTag("Player")) {
+                float distance = Vector3.Distance(_zombieStateMachine.sensorPosition, other.transform.position);
 
                 if (curType != AITargetType.VisualPlayer ||
-                    (curType == AITargetType.VisualPlayer && distance < _stateMachine.VisualThreat.distance)) {
+                    (curType == AITargetType.VisualPlayer && distance < _zombieStateMachine.VisualThreat.distance)) {
 
                     RaycastHit hitInfo;
-                    if (ColliderIsVisible (other, out hitInfo, _playerLayerMask)) {
-                        _stateMachine.VisualThreat.Set(AITargetType.VisualPlayer, other, other.transform.position, distance);
+                    if (ColliderIsVisible(other, out hitInfo, _playerLayerMask)) {
+                        _zombieStateMachine.VisualThreat.Set(AITargetType.VisualPlayer, other, other.transform.position, distance);
                     }
                 }
             }
@@ -37,19 +44,19 @@ public abstract class AIZombieState : AIState {
     protected virtual bool ColliderIsVisible(Collider other, out RaycastHit hitInfo, int layerMask = -1) {
         hitInfo = new RaycastHit();
 
-        if (_stateMachine == null || _stateMachine.GetType() != typeof(AIZombieStateMachine))
+        if (_zombieStateMachine == null)
             return false;
 
-        AIZombieStateMachine zombieMachine = (AIZombieStateMachine) _stateMachine;
+        AIZombieStateMachine zombieMachine = (AIZombieStateMachine)_stateMachine;
 
         Vector3 head = _stateMachine.sensorPosition;
         Vector3 direction = other.transform.position - head;
         float angle = Vector3.Angle(direction, transform.forward);
 
-        if (angle > zombieMachine.fieldOfView * 0.5f)
+        if (angle > _zombieStateMachine.fieldOfView * 0.5f)
             return false;
 
-        RaycastHit[] hits = Physics.RaycastAll(head, direction.normalized, _stateMachine.sensorRadius * zombieMachine.sight, layerMask);
+        RaycastHit[] hits = Physics.RaycastAll(head, direction.normalized, _zombieStateMachine.sensorRadius * _zombieStateMachine.sight, layerMask);
 
         float closestColliderDistance = float.MaxValue;
         Collider closestCollider = null;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AIState : MonoBehaviour {
 
-    public void SetStateMachine(AIStateMachine stateMachine) {
+    public virtual void SetStateMachine(AIStateMachine stateMachine) {
         _stateMachine = stateMachine;
     }
 
