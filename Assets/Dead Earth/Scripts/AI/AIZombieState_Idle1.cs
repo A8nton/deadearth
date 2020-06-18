@@ -43,6 +43,10 @@ public class AIZombieState_Idle1 : AIZombieState {
             _zombieStateMachine.SetTarget(_zombieStateMachine.AudioThreat);
             return AIStateType.Alerted;
         }
+        if (_zombieStateMachine.VisualThreat.type == AITargetType.VisualLight) {
+            _zombieStateMachine.SetTarget(_zombieStateMachine.VisualThreat);
+            return AIStateType.Alerted;
+        }
         if (_zombieStateMachine.VisualThreat.type == AITargetType.VisualFood) {
             _zombieStateMachine.SetTarget(_zombieStateMachine.VisualThreat);
             return AIStateType.Pursuit;
