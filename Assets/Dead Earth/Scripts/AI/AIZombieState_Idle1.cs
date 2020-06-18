@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class AIZombieState_Idle1 : AIZombieState {
@@ -38,10 +39,18 @@ public class AIZombieState_Idle1 : AIZombieState {
             _zombieStateMachine.SetTarget(_zombieStateMachine.VisualThreat);
             return AIStateType.Pursuit;
         }
-        if (_zombieStateMachine.VisualThreat.type == AITargetType.VisualLight) {
-            _zombieStateMachine.SetTarget(_zombieStateMachine.VisualThreat);
+        if (_zombieStateMachine.AudioThreat.type == AITargetType.Audio) {
+            _zombieStateMachine.SetTarget(_zombieStateMachine.AudioThreat);
             return AIStateType.Alerted;
         }
+        if (_zombieStateMachine.VisualThreat.type == AITargetType.VisualFood) {
+            _zombieStateMachine.SetTarget(_zombieStateMachine.VisualThreat);
+            return AIStateType.Pursuit;
+        }
+
+        _timer += Time.deltaTime;
+        if (_timer > _idleTime)
+            return AIStateType.Patrol;
 
         return AIStateType.Idle;
     }
