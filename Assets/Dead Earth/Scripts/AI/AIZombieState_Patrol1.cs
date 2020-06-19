@@ -119,4 +119,12 @@ public class AIZombieState_Patrol1 : AIZombieState {
         if (_zombieStateMachine.targetType == AITargetType.Waypoint)
             NextWaypoint();
     }
+
+    public override void OnAnimatorIKUpdated() {
+        if (_zombieStateMachine == null)
+            return;
+
+        _zombieStateMachine.animator.SetLookAtPosition(_zombieStateMachine.targetPosition + Vector3.up);
+        _zombieStateMachine.animator.SetLookAtWeight(0.55f);
+    }
 }

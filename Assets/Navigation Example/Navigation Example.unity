@@ -3616,7 +3616,7 @@ MonoBehaviour:
   _waypointNetwork: {fileID: 2031479502}
   _randomPatrol: 0
   _currentWaypoint: 0
-  _turnOnSpotThreshold: 80
+  _turnOnSpotThreshold: 360
   _slerpSpeed: 5
   _speed: 2
 --- !u!1 &1533716648
