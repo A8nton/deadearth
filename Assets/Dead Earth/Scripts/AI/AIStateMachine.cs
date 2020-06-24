@@ -58,6 +58,7 @@ public abstract class AIStateMachine : MonoBehaviour {
 	protected Collider _collider = null;
 	protected Transform _transform = null;
 
+	public bool inMeleeRange { get; set; }
 	public Animator animator { get { return _animator; } }
 	public NavMeshAgent navAgent { get { return _navAgent; } }
 	public Vector3 sensorPosition {

@@ -3634,6 +3634,26 @@ MonoBehaviour:
   _maxDuration: 5
   _waypointAngleThreshold: 15
   _threatAngleThreshold: 10
+--- !u!114 &1423318322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423318314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c5768ed04208d4fafb7431ca5fa7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
+  _slerpSpeed: 5
+  _repathDistanceMultiplier: 0.035
+  _repathVisualMinDuration: 0.05
+  _repathVisualMaxDuration: 5
+  _repathAudioMinDuration: 0.25
+  _repathAudioMaxDuration: 5
+  _maxDuration: 40
 --- !u!1 &1533716648
 GameObject:
   m_ObjectHideFlags: 0
@@ -4102,8 +4122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85480ecd58b15bc488a5cdbd034dcf4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayMode: 1
-  UiStart: 1
+  DisplayMode: 2
+  UiStart: 0
   UiEnd: 2
   Waypoints:
   - {fileID: 1266804575}
