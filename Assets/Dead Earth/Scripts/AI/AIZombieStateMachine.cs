@@ -1,77 +1,51 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Permissions;
 using UnityEngine;
 
 public class AIZombieStateMachine : AIStateMachine {
+	[SerializeField] [Range(10.0f, 360.0f)] float _fieldOfView = 50.0f;
+	[SerializeField] [Range(0.0f, 1.0f)] float _sight = 0.5f;
+	[SerializeField] [Range(0.0f, 1.0f)] float _hearing = 1.0f;
+	[SerializeField] [Range(0.0f, 1.0f)] float _aggression = 0.5f;
+	[SerializeField] [Range(0, 100)] int _health = 100;
+	[SerializeField] [Range(0.0f, 1.0f)] float _intelligence = 0.5f;
+	[SerializeField] [Range(0.0f, 1.0f)] float _satisfaction = 1.0f;
 
-    [SerializeField]
-    [Range(10, 360)]
-    float _fieldOfView = 50;
+	private int _seeking = 0;
+	private bool _feeding = false;
+	private bool _crawling = false;
+	private int _attackType = 0;
+	private float _speed = 0.0f;
 
-    [SerializeField]
-    [Range(0, 1)]
-    float _sight = 0.5f;
-
-    [SerializeField]
-    [Range(0, 1)]
-    float _hearing = 1;
-
-    [SerializeField]
-    [Range(0, 1)]
-    float _aggression = 0.5f;
-
-    [SerializeField]
-    [Range(0, 100)]
-    int _health = 100;
-
-    [SerializeField]
-    [Range(0, 1)]
-    float _intelligence = 0.5f;
-
-    [SerializeField]
-    [Range(0, 1)]
-    float _satisfaction = 0.5f;
+	private int _speedHash = Animator.StringToHash("Speed");
+	private int _seekingHash = Animator.StringToHash("Seeking");
+	private int _feedingHash = Animator.StringToHash("Feeding");
+	private int _attackHash = Animator.StringToHash("Attack");
 
 
-    private int _seeking = 0;
-    private bool _feeding = false;
-    private bool _crawling = false;
-    private int _attackType = 0;
-    private float _speed = 0.0f;
+	public float fieldOfView { get { return _fieldOfView; } }
+	public float hearing { get { return _hearing; } }
+	public float sight { get { return _sight; } }
+	public bool crawling { get { return _crawling; } }
+	public float intelligence { get { return _intelligence; } }
+	public float satisfaction { get { return _satisfaction; } set { _satisfaction = value; } }
+	public float aggression { get { return _aggression; } set { _aggression = value; } }
+	public int health { get { return _health; } set { _health = value; } }
+	public int attackType { get { return _attackType; } set { _attackType = value; } }
+	public bool feeding { get { return _feeding; } set { _feeding = value; } }
+	public int seeking { get { return _seeking; } set { _seeking = value; } }
+	public float speed {
+		get { return _speed; }
+		set { _speed = value; }
+	}
 
-    private int _speedHash = Animator.StringToHash("Speed");
-    private int _seekingHash = Animator.StringToHash("Seeking");
-    private int _feedingHash = Animator.StringToHash("Feeding");
-    private int _attackHash = Animator.StringToHash("Attack");
+	protected override void Update() {
+		base.Update();
 
-    public float fieldOfView { get => _fieldOfView; }
-    public float sight { get => _sight; }
-    public float hearing { get => _hearing; }
-    public int health { get => _health; }
-    public float intelligence { get => _intelligence; }
-    public float aggression { get => _aggression; set => _aggression = value; }
-    public float satisfaction { get => _satisfaction; set => _satisfaction = value; }
-    public bool feeding { get => _feeding; set => _feeding = value; }
-    public bool crawling { get => _crawling; set => _crawling = value; }
-    public int attackType { get => _attackType; set => _attackType = value; }
-    public int seeking { get => _seeking; set => _seeking = value; }
-
-    public float speed {
-        get { return _speed; }
-        set { _speed = value; }
-    }
-
-    protected override void Update() {
-        base.Update();
-
-        if (_animator != null) {
-
-            _animator.SetFloat(_speedHash, _speed);
-            _animator.SetBool(_feedingHash, _feeding);
-            _animator.SetInteger (_seekingHash, _seeking);
-            _animator.SetInteger (_attackHash, _attackType);
-
-        }
-    }
+		if (_animator != null) {
+			_animator.SetFloat(_speedHash, _speed);
+			_animator.SetBool(_feedingHash, _feeding);
+			_animator.SetInteger(_seekingHash, _seeking);
+			_animator.SetInteger(_attackHash, _attackType);
+		}
+	}
 }

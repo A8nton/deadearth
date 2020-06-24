@@ -68,7 +68,6 @@ public class NavAgentNoRootMotion : MonoBehaviour {
         horizontal = Mathf.Clamp(horizontal * 2.32f, -2.32f, 2.32f);
 
         if (_navAgent.desiredVelocity.magnitude < 1)
-            Debug.Log("magnitude: " + _navAgent.desiredVelocity.magnitude);
 
         if (!_hasPath)
             _navAgent.speed = 0.1f;
