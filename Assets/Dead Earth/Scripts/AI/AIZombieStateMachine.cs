@@ -52,7 +52,7 @@ public class AIZombieStateMachine : AIStateMachine {
 
 		if (_animator != null) {
 			_animator.SetFloat(_speedHash, _speed);
-			_animator.SetBool(_feedingHash, _feeding);
+			//_animator.SetBool(_feedingHash, _feeding);
 			_animator.SetInteger(_seekingHash, _seeking);
 			_animator.SetInteger(_attackHash, _attackType);
 		}
