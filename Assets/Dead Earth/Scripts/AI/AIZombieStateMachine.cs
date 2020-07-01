@@ -1,6 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
+// --------------------------------------------------------------------------
+// CLASS	:	AIZombieStateMachine
+// DESC		:	State Machine used by zombie characters
+// --------------------------------------------------------------------------
 public class AIZombieStateMachine : AIStateMachine {
 	[SerializeField] [Range(10.0f, 360.0f)] float _fieldOfView = 50.0f;
 	[SerializeField] [Range(0.0f, 1.0f)] float _sight = 0.5f;
@@ -38,6 +42,11 @@ public class AIZombieStateMachine : AIStateMachine {
 		set { _speed = value; }
 	}
 
+	// ---------------------------------------------------------
+	// Name	:	Update
+	// Desc	:	Refresh the animator with up-to-date values for
+	//			its parameters
+	// ---------------------------------------------------------
 	protected override void Update() {
 		base.Update();
 

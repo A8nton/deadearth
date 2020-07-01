@@ -1,23 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 public class AISensor : MonoBehaviour {
+	private AIStateMachine _parentStateMachine = null;
+	public AIStateMachine parentStateMachine { set { _parentStateMachine = value; } }
 
-    private AIStateMachine _parentStateMachine;
+	void OnTriggerEnter(Collider col) {
+		if (_parentStateMachine != null)
+			_parentStateMachine.OnTriggerEvent(AITriggerEventType.Enter, col);
+	}
 
-    public AIStateMachine parentStateMachine { set { _parentStateMachine = value; } }
+	void OnTriggerStay(Collider col) {
+		if (_parentStateMachine != null)
+			_parentStateMachine.OnTriggerEvent(AITriggerEventType.Stay, col);
+	}
 
-    public void OnTriggerEnter(Collider other) {
-        if (_parentStateMachine != null)
-            _parentStateMachine.OnTriggerEvent(AITriggerEventType.Enter, other);
-    }
-    public void OnTriggerStay(Collider other) {
-        if (_parentStateMachine != null)
-            _parentStateMachine.OnTriggerEvent(AITriggerEventType.Stay, other);
-    }
-    public void OnTriggerExit(Collider other) {
-        if (_parentStateMachine != null)
-            _parentStateMachine.OnTriggerEvent(AITriggerEventType.Exit, other);
-    }
+	void OnTriggerExit(Collider col) {
+		if (_parentStateMachine != null)
+			_parentStateMachine.OnTriggerEvent(AITriggerEventType.Exit, col);
+	}
+
 }

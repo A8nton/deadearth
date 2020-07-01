@@ -31,12 +31,12 @@ public class AIZombieState_Idle1 : AIZombieState {
 		if (_zombieStateMachine == null)
 			return AIStateType.Idle;
 
-		if (_zombieStateMachine.VisualThreat.type == AITargetType.VisualPlayer) {
+		if (_zombieStateMachine.VisualThreat.type == AITargetType.Visual_Player) {
 			_zombieStateMachine.SetTarget(_zombieStateMachine.VisualThreat);
 			return AIStateType.Pursuit;
 		}
 
-		if (_zombieStateMachine.VisualThreat.type == AITargetType.VisualLight) {
+		if (_zombieStateMachine.VisualThreat.type == AITargetType.Visual_Light) {
 			_zombieStateMachine.SetTarget(_zombieStateMachine.VisualThreat);
 			return AIStateType.Alerted;
 		}
@@ -46,7 +46,7 @@ public class AIZombieState_Idle1 : AIZombieState {
 			return AIStateType.Alerted;
 		}
 
-		if (_zombieStateMachine.VisualThreat.type == AITargetType.VisualFood) {
+		if (_zombieStateMachine.VisualThreat.type == AITargetType.Visual_Food) {
 			_zombieStateMachine.SetTarget(_zombieStateMachine.VisualThreat);
 			return AIStateType.Pursuit;
 		}
