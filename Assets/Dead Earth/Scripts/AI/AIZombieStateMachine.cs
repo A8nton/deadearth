@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 // --------------------------------------------------------------------------
 // CLASS	:	AIZombieStateMachine
@@ -14,6 +14,9 @@ public class AIZombieStateMachine : AIStateMachine {
 	[SerializeField] [Range(0.0f, 1.0f)] float _intelligence = 0.5f;
 	[SerializeField] [Range(0.0f, 1.0f)] float _satisfaction = 1.0f;
 
+	[SerializeField] float _replenishRate = 0.5f;
+	[SerializeField] float _depletionRate = 0.1f;
+
 	private int _seeking = 0;
 	private bool _feeding = false;
 	private bool _crawling = false;
@@ -25,7 +28,7 @@ public class AIZombieStateMachine : AIStateMachine {
 	private int _feedingHash = Animator.StringToHash("Feeding");
 	private int _attackHash = Animator.StringToHash("Attack");
 
-
+	public float replenishRate { get => _replenishRate;}
 	public float fieldOfView { get { return _fieldOfView; } }
 	public float hearing { get { return _hearing; } }
 	public float sight { get { return _sight; } }
@@ -52,7 +55,7 @@ public class AIZombieStateMachine : AIStateMachine {
 
 		if (_animator != null) {
 			_animator.SetFloat(_speedHash, _speed);
-			//_animator.SetBool(_feedingHash, _feeding);
+			_animator.SetBool(_feedingHash, _feeding);
 			_animator.SetInteger(_seekingHash, _seeking);
 			_animator.SetInteger(_attackHash, _attackType);
 		}
