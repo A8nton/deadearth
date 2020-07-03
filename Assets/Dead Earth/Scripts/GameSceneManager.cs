@@ -7,6 +7,10 @@ using UnityEngine;
 // Desc		:	Singleton class that acts as the scene database
 // -------------------------------------------------------------------------
 public class GameSceneManager : MonoBehaviour {
+
+	[SerializeField]
+	private ParticleSystem _bloodParticles;
+
 	private static GameSceneManager _instance = null;
 	public static GameSceneManager instance {
 		get {
@@ -15,14 +19,10 @@ public class GameSceneManager : MonoBehaviour {
 			return _instance;
 		}
 	}
-
 	private Dictionary<int, AIStateMachine> _stateMachines = new Dictionary<int, AIStateMachine>();
 
-	// --------------------------------------------------------------------
-	// Name	:	RegisterAIStateMachine
-	// Desc	:	Stores the passed state machine in the dictionary with
-	//			the supplied key
-	// --------------------------------------------------------------------
+	public ParticleSystem bloodParticles { get => _bloodParticles; }
+
 	public void RegisterAIStateMachine(int key, AIStateMachine stateMachine) {
 		if (!_stateMachines.ContainsKey(key)) {
 			_stateMachines[key] = stateMachine;
