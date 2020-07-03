@@ -54,7 +54,9 @@ public class AIZombieState_Idle1 : AIZombieState {
 		_timer += Time.deltaTime;
 
 		if (_timer > _idleTime) {
-			return AIStateType.Patrol;
+			_zombieStateMachine.navAgent.SetDestination(_zombieStateMachine.GetWaypointPosition(false));
+			_zombieStateMachine.navAgent.isStopped = false;
+			return AIStateType.Alerted;
 		}
 
 		return AIStateType.Idle;

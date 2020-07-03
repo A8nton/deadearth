@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 // ----------------------------------------------------------------
 // CLASS	:	AIZombieState_Patrol1
@@ -31,17 +31,13 @@ public class AIZombieState_Patrol1 : AIZombieState {
 		if (_zombieStateMachine == null)
 			return;
 
-		// Configure State Machine
 		_zombieStateMachine.NavAgentControl(true, false);
-		_zombieStateMachine.speed = _speed;
 		_zombieStateMachine.seeking = 0;
 		_zombieStateMachine.feeding = false;
 		_zombieStateMachine.attackType = 0;
 
-		// Set Destination
 		_zombieStateMachine.navAgent.SetDestination(_zombieStateMachine.GetWaypointPosition(false));
 
-		// Make sure NavAgent is switched on
 		_zombieStateMachine.navAgent.isStopped = false;
 	}
 
@@ -81,16 +77,19 @@ public class AIZombieState_Patrol1 : AIZombieState {
 			}
 		}
 
-		// Calculate angle we need to turn through to be facing our target
+		if (_zombieStateMachine.navAgent.pathPending) {
+			_zombieStateMachine.speed = 0;
+			return AIStateType.Patrol;
+		} else {
+			_zombieStateMachine.speed = _speed;
+		}
+
 		float angle = Vector3.Angle(_zombieStateMachine.transform.forward, (_zombieStateMachine.navAgent.steeringTarget - _zombieStateMachine.transform.position));
 
-		// If its too big then drop out of Patrol and into Altered
 		if (angle > _turnOnSpotThreshold) {
 			return AIStateType.Alerted;
 		}
 
-		// If root rotation is not being used then we are responsible for keeping zombie rotated
-		// and facing in the right direction. 
 		if (!_zombieStateMachine.useRootRotation) {
 			// Generate a new Quaternion representing the rotation we should have
 			Quaternion newRot = Quaternion.LookRotation(_zombieStateMachine.navAgent.desiredVelocity);
@@ -104,6 +103,7 @@ public class AIZombieState_Patrol1 : AIZombieState {
 		if (_zombieStateMachine.navAgent.isPathStale ||
 			!_zombieStateMachine.navAgent.hasPath ||
 			_zombieStateMachine.navAgent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete) {
+
 			_zombieStateMachine.navAgent.SetDestination(_zombieStateMachine.GetWaypointPosition(true));
 		}
 
