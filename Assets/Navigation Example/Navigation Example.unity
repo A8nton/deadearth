@@ -6120,6 +6120,37 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &749133754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749133755}
+  m_Layer: 0
+  m_Name: Colliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &749133755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749133754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1357201280}
+  m_Father: {fileID: 1397902806}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &938962742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -650382798008282385, guid: 2dbb5dc9a521ab540b5c1ddd1b4d5907,
@@ -9324,7 +9355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1083519184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9425,6 +9456,7 @@ GameObject:
   - component: {fileID: 1140571956}
   - component: {fileID: 1140571955}
   - component: {fileID: 1140571959}
+  - component: {fileID: 1140571960}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -9547,6 +9579,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &1140571960
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140571954}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.0000001, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1174735297
 GameObject:
   m_ObjectHideFlags: 0
@@ -10425,6 +10470,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1357201279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1357201280}
+  - component: {fileID: 1357201281}
+  m_Layer: 0
+  m_Name: Bus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1357201280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357201279}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.66, y: 0.566, z: 18.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 749133755}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1357201281
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357201279}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.85816, y: 2.927557, z: 3.7795048}
+  m_Center: {x: -0.5715916, y: 0.9333935, z: -1.5697412}
 --- !u!1 &1374264345
 GameObject:
   m_ObjectHideFlags: 0
@@ -10458,6 +10547,12 @@ Transform:
 --- !u!1 &1397902805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 190214, guid: 22e8e9479d52a604abc938e32f8c8873,
+    type: 3}
+  m_PrefabInstance: {fileID: 1006677813}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1397902806 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 461088, guid: 22e8e9479d52a604abc938e32f8c8873,
     type: 3}
   m_PrefabInstance: {fileID: 1006677813}
   m_PrefabAsset: {fileID: 0}
@@ -10879,11 +10974,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709026f54b6f4f74b82ac39d68eacd2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSpeed: 5
-  _runSpeed: 10
+  _walkSpeed: 3
+  _runSpeed: 7
   _jumpSpeed: 7.5
   _stickToGroundForce: 5
   _gravityMultiplyer: 2.5
+  _runStepLengthen: 0.65
+  _headBob:
+    _bobcurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1.5
+        value: -1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 2
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _horizontalMultiplier: 0.01
+    _verticalMultiplier: 0.03
+    _verticalToHorizontalSpeedRatio: 2
+    _baseInterval: 3
   _mouseLook:
     XSensitivity: 2
     YSensitivity: 2
@@ -10891,7 +11043,7 @@ MonoBehaviour:
     MinimumX: -90
     MaximumX: 90
     smooth: 0
-    smoothTime: 5
+    smoothTime: 20
     lockCursor: 1
 --- !u!143 &1768858789
 CharacterController:
@@ -10919,7 +11071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768858787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.05, y: 0.6, z: 21.29}
+  m_LocalPosition: {x: -13.36, y: 0.947, z: 21.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 14962229}

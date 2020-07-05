@@ -23,7 +23,7 @@ public class SlidingDoor : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space) && _doorState != DoorState.Animating) {
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && _doorState != DoorState.Animating) {
             StartCoroutine(AnimateDoor(_doorState == DoorState.Open ? DoorState.Closed : DoorState.Open));
         }
     }
