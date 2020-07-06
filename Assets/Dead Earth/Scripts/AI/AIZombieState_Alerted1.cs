@@ -65,7 +65,8 @@ public class AIZombieState_Alerted1 : AIZombieState {
 		}
 
 		if (_zombieStateMachine.AudioThreat.type == AITargetType.None &&
-			_zombieStateMachine.VisualThreat.type == AITargetType.Visual_Food) {
+			_zombieStateMachine.VisualThreat.type == AITargetType.Visual_Food && 
+			_zombieStateMachine.targetType == AITargetType.None) {
 			_zombieStateMachine.SetTarget(_stateMachine.VisualThreat);
 			return AIStateType.Pursuit;
 		}
@@ -99,6 +100,11 @@ public class AIZombieState_Alerted1 : AIZombieState {
 			if (_directionChangeTimer > _directionChangeTime) {
 				_zombieStateMachine.seeking = (int)Mathf.Sign(angle);
 				_directionChangeTimer = 0.0f;
+			}
+		} else {
+			if (_directionChangeTimer > _directionChangeTime) {
+				_zombieStateMachine.seeking = (int)Mathf.Sign(Random.Range(-1, 1));
+				_directionChangeTimer = 0;
 			}
 		}
 
