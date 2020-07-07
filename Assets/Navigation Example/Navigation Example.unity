@@ -10693,7 +10693,7 @@ MonoBehaviour:
   _aggression: 0.5
   _health: 100
   _intelligence: 1
-  _satisfaction: 0.014
+  _satisfaction: 0.533
   _replenishRate: 2
   _depletionRate: 0.1
 --- !u!114 &1423318319
@@ -11168,7 +11168,7 @@ MonoBehaviour:
     MaximumX: 90
     smooth: 0
     smoothTime: 20
-    lockCursor: 1
+    lockCursor: 0
 --- !u!143 &1768858789
 CharacterController:
   m_ObjectHideFlags: 0
