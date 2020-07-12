@@ -17,6 +17,8 @@ public class AIZombieState_Attack1 : AIZombieState {
 
     [SerializeField]
     private float _slerpSpeed = 5.0f;
+    [SerializeField]
+    private float _stoppingDistance = 1.0f;
 
     private float _currentLookATWeight = 0.0f;
 
@@ -47,6 +49,11 @@ public class AIZombieState_Attack1 : AIZombieState {
     public override AIStateType OnUpdate() {
         Vector3 targetPos;
         Quaternion newRot;
+
+        if (Vector3.Distance(_zombieStateMachine.transform.position, _zombieStateMachine.targetPosition) < _stoppingDistance)
+            _zombieStateMachine.speed = 0;
+        else
+            _zombieStateMachine.speed = _speed;
 
         if (_zombieStateMachine.VisualThreat.type == AITargetType.Visual_Player) {
             _zombieStateMachine.SetTarget(_stateMachine.VisualThreat);
