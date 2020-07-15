@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 14962229}
   - component: {fileID: 14962230}
   - component: {fileID: 14962231}
+  - component: {fileID: 14962232}
   m_Layer: 11
   m_Name: FBS Camera
   m_TagString: MainCamera
@@ -205,6 +206,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 14962228}
   m_Enabled: 1
+--- !u!114 &14962232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14962228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f187429872e278d42a48bd19cc80cbea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shader: {fileID: 4800000, guid: cf3c18a8e806e9c4f93cf4dfd65dd122, type: 3}
 --- !u!1 &30163292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1034452372374031725, guid: 3b9cded33131ca640a233f7eb5863a65,
