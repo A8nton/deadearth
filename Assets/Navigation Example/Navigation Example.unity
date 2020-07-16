@@ -218,6 +218,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f187429872e278d42a48bd19cc80cbea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodTexture: {fileID: 2800000, guid: 7521c0fcf6a82a143b97e5e23d74d599, type: 3}
+  _bloodNormalMap: {fileID: 2800000, guid: b707e0033a9b0f64d842c95698adc32a, type: 3}
+  _bloodAmount: 0
+  _minBloodAmount: 0
+  _distortion: 1
+  _autoFade: 1
+  _fadeSpeed: 0.05
   _shader: {fileID: 4800000, guid: cf3c18a8e806e9c4f93cf4dfd65dd122, type: 3}
 --- !u!1 &30163292 stripped
 GameObject:

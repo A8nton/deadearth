@@ -3,6 +3,10 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _BloodTex("Blood Texture", 2D) = "white" {}
+        _BloodBump("Blood Normal", 2D) = "bump" {}
+        _Distortion("Blood Distortion", Range(0, 2)) = 1
+        _BloodAmount("Blood Amount", Range(0, 1)) = 0
     }
     SubShader
     {
@@ -38,13 +42,21 @@
             }
 
             sampler2D _MainTex;
+            sampler2D _BloodTex;
+            sampler2D _BloodBump;
+            float _BloodAmount;
+            float _Distortion;
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // just invert the colors
-                col.rgb = 1 - col.rgb;
-                return col;
+                fixed4 srcCol = tex2D(_MainTex, i.uv);
+                fixed4 bloodCol = tex2D(_BloodTex, i.uv);
+                bloodCol.a = saturate(bloodCol.a + (_BloodAmount * 2 - 1));
+
+                fixed4 overlayCol = srcCol * bloodCol * 2;
+                overlayCol = lerp(srcCol, overlayCol, 0.75);
+                fixed4 output = lerp(srcCol, overlayCol, bloodCol.a);
+                return output;
             }
             ENDCG
         }
