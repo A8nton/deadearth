@@ -49,9 +49,11 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 srcCol = tex2D(_MainTex, i.uv);
                 fixed4 bloodCol = tex2D(_BloodTex, i.uv);
                 bloodCol.a = saturate(bloodCol.a + (_BloodAmount * 2 - 1));
+
+                half2 bump = UnpackNormal(tex2D(_BloodBump, i.uv)).xy;
+                fixed4 srcCol = tex2D(_MainTex, i.uv + bump * bloodCol.a * _Distortion);
 
                 fixed4 overlayCol = srcCol * bloodCol * 2;
                 overlayCol = lerp(srcCol, overlayCol, 0.75);
