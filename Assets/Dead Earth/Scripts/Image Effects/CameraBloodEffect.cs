@@ -25,10 +25,10 @@ public class CameraBloodEffect : MonoBehaviour {
 
     private Material _material;
 
-    public float BloodAmount { get => _bloodAmount; set => _bloodAmount = value; }
-    public float MinBloodeAmount { get => _minBloodAmount; set => _minBloodAmount = value; }
-    public float FadeSpeed { get => _fadeSpeed; set => _fadeSpeed = value; }
-    public bool AutoFade { get => _autoFade; set => _autoFade = value; }
+    public float bloodAmount { get => _bloodAmount; set => _bloodAmount = value; }
+    public float minBloodAmount { get => _minBloodAmount; set => _minBloodAmount = value; }
+    public float fadeSpeed { get => _fadeSpeed; set => _fadeSpeed = value; }
+    public bool autoFade { get => _autoFade; set => _autoFade = value; }
 
     public void Update() {
         if (_autoFade) {

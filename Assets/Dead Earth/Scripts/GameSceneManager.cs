@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// -------------------------------------------------------------------------
-// CLASS	:	GameSceneManager
-// Desc		:	Singleton class that acts as the scene database
-// -------------------------------------------------------------------------
+public class PlayerInfo {
+	public Collider collider;
+	public CharacterManager characterManager;
+	public Camera camera;
+	public CapsuleCollider meleeTrigger;
+}
+
 public class GameSceneManager : MonoBehaviour {
+
+	private Dictionary<int, AIStateMachine> _stateMachines = new Dictionary<int, AIStateMachine>();
+	private Dictionary<int, PlayerInfo> _playerInfos = new Dictionary<int, PlayerInfo>();
 
 	[SerializeField]
 	private ParticleSystem _bloodParticles;
@@ -19,7 +25,6 @@ public class GameSceneManager : MonoBehaviour {
 			return _instance;
 		}
 	}
-	private Dictionary<int, AIStateMachine> _stateMachines = new Dictionary<int, AIStateMachine>();
 
 	public ParticleSystem bloodParticles { get => _bloodParticles; }
 
@@ -40,6 +45,20 @@ public class GameSceneManager : MonoBehaviour {
 			return machine;
 		}
 
+		return null;
+	}
+
+	public void RegisterPlayerInfo(int key, PlayerInfo playerInfo) {
+		if (!_playerInfos.ContainsKey(key)) {
+			_playerInfos[key] = playerInfo;
+		}
+	}
+
+	public PlayerInfo GetPlayerInfo(int key) {
+		PlayerInfo info = null;
+		if (_playerInfos.TryGetValue(key, out info)) {
+			return info;
+		}
 		return null;
 	}
 }

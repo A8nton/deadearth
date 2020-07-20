@@ -130,9 +130,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 14962229}
+  - component: {fileID: 14962232}
   - component: {fileID: 14962230}
   - component: {fileID: 14962231}
-  - component: {fileID: 14962232}
   m_Layer: 11
   m_Name: FBS Camera
   m_TagString: MainCamera
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bloodTexture: {fileID: 2800000, guid: 7521c0fcf6a82a143b97e5e23d74d599, type: 3}
   _bloodNormalMap: {fileID: 2800000, guid: b707e0033a9b0f64d842c95698adc32a, type: 3}
-  _bloodAmount: 0.90216166
+  _bloodAmount: 0.09
   _minBloodAmount: 0.09
   _distortion: 0.01
   _autoFade: 1
@@ -246,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parameter: LeftHand
   _bloodParticlesBurstAmount: 10
+  _damageAmount: 50
 --- !u!135 &30163295
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11189,6 +11190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parameter: RightHand
   _bloodParticlesBurstAmount: 10
+  _damageAmount: 50
 --- !u!135 &1577082478
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11235,6 +11237,7 @@ GameObject:
   - component: {fileID: 1768858790}
   - component: {fileID: 1768858789}
   - component: {fileID: 1768858788}
+  - component: {fileID: 1768858794}
   - component: {fileID: 1768858792}
   - component: {fileID: 1768858791}
   - component: {fileID: 1768858793}
@@ -11575,6 +11578,22 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1768858794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768858787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8048a429bfb36414d9a08953b6879da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meleeTrigger: {fileID: 1075798677}
+  _cameraBloodEffect: {fileID: 14962232}
+  _camera: {fileID: 14962230}
+  _health: 100
 --- !u!1 &1791523636
 GameObject:
   m_ObjectHideFlags: 0
@@ -12174,7 +12193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parameter: Mouth
-  _bloodParticlesBurstAmount: 10
+  _bloodParticlesBurstAmount: 30
+  _damageAmount: 10
 --- !u!136 &2054789860
 CapsuleCollider:
   m_ObjectHideFlags: 0
