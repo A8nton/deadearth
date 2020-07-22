@@ -47,8 +47,11 @@ public abstract class AIStateMachine : MonoBehaviour {
 	protected int _rootPositionRefCount = 0;
 	protected int _rootRotationRefCount = 0;
 	protected bool _isTargetReached = false;
+	protected List<Rigidbody> _bodyParts = new List<Rigidbody>();
+	protected int _aiBodyPartLayer = -1;
 
 	[SerializeField] protected AIStateType _currentStateType = AIStateType.Idle;
+	[SerializeField] protected Transform _rootBone;
 	[SerializeField] protected SphereCollider _targetTrigger = null;
 	[SerializeField] protected SphereCollider _sensorTrigger = null;
 	[SerializeField] protected AIWaypointsNetwork _waypointNetwork = null;
@@ -105,11 +108,23 @@ public abstract class AIStateMachine : MonoBehaviour {
 		_navAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		_collider = GetComponent<Collider>();
 
+		_aiBodyPartLayer = LayerMask.NameToLayer("AI Body Part");
+
 		if (GameSceneManager.instance != null) {
 			if (_collider) GameSceneManager.instance.RegisterAIStateMachine(_collider.GetInstanceID(), this);
 			if (_sensorTrigger) GameSceneManager.instance.RegisterAIStateMachine(_sensorTrigger.GetInstanceID(), this);
 		}
 
+		if (_rootBone != null) {
+			Rigidbody[] bodies = _rootBone.GetComponentsInChildren<Rigidbody>();
+
+			foreach(Rigidbody bodyPart in bodies) {
+				if (bodyPart != null && bodyPart.gameObject.layer == _aiBodyPartLayer) {
+					_bodyParts.Add(bodyPart);
+					GameSceneManager.instance.RegisterAIStateMachine(bodyPart.GetInstanceID(), this);
+				}
+			}
+		}
 	}
 
 	protected virtual void Start() {
@@ -358,5 +373,9 @@ public abstract class AIStateMachine : MonoBehaviour {
 	public void AddRootMotionRequest(int rootPosition, int rootRotation) {
 		_rootPositionRefCount += rootPosition;
 		_rootRotationRefCount += rootRotation;
+	}
+
+	public virtual void TakeDamage (Vector3 position, Vector3 force, int damage, Rigidbody bodyPart, CharacterManager characterManager, int hitDirection = 0) {
+		
 	}
 }
