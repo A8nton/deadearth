@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public enum AIBoneControlType { Animated, Ragdoll, RagdollToAnim }
+
 // --------------------------------------------------------------------------
 // CLASS	:	AIZombieStateMachine
 // DESC		:	State Machine used by zombie characters
@@ -12,6 +14,11 @@ public class AIZombieStateMachine : AIStateMachine {
 	[SerializeField] [Range(0.0f, 1.0f)] float _hearing = 1.0f;
 	[SerializeField] [Range(0.0f, 1.0f)] float _aggression = 0.5f;
 	[SerializeField] [Range(0, 100)] int _health = 100;
+	[SerializeField] [Range(0, 100)] int _lowerBodyDamage = 0;
+	[SerializeField] [Range(0, 100)] int _upperBodyDamage = 0;
+	[SerializeField] [Range(0, 100)] int _upperBodyThreshold = 30;
+	[SerializeField] [Range(0, 100)] int _limpThreshold = 30;
+	[SerializeField] [Range(0, 100)] int _crawlThreshold = 90;
 	[SerializeField] [Range(0.0f, 1.0f)] float _intelligence = 0.5f;
 	[SerializeField] [Range(0.0f, 1.0f)] float _satisfaction = 1.0f;
 
@@ -24,10 +31,13 @@ public class AIZombieStateMachine : AIStateMachine {
 	private int _attackType = 0;
 	private float _speed = 0.0f;
 
+	private AIBoneControlType _boneControleType = AIBoneControlType.Animated;
+
 	private int _speedHash = Animator.StringToHash("Speed");
 	private int _seekingHash = Animator.StringToHash("Seeking");
 	private int _feedingHash = Animator.StringToHash("Feeding");
 	private int _attackHash = Animator.StringToHash("Attack");
+	private int _crawlingHash = Animator.StringToHash("Crawling");
 
 	public float replenishRate { get => _replenishRate; }
 	public float fieldOfView { get { return _fieldOfView; } }
@@ -46,11 +56,15 @@ public class AIZombieStateMachine : AIStateMachine {
 		set { _speed = value; }
 	}
 
-	// ---------------------------------------------------------
-	// Name	:	Update
-	// Desc	:	Refresh the animator with up-to-date values for
-	//			its parameters
-	// ---------------------------------------------------------
+	public bool isCrawling {
+		get { return(_lowerBodyDamage >= _crawlThreshold); }
+	}
+
+	protected override void Start() {
+		base.Start();
+		UpdateAnimatorDamage();
+	}
+
 	protected override void Update() {
 		base.Update();
 
@@ -62,6 +76,12 @@ public class AIZombieStateMachine : AIStateMachine {
 		}
 
 		_satisfaction = Mathf.Max(0, _satisfaction - ((_depletionRate * Time.deltaTime) / 100.0f) * Mathf.Pow(_speed, 3.0f));
+	}
+
+	protected void UpdateAnimatorDamage() {
+		if (_animator != null) {
+			_animator.SetBool(_crawlingHash, isCrawling);
+		}
 	}
 
 	public override void TakeDamage(Vector3 position, Vector3 force, int damage, Rigidbody bodyPart, CharacterManager characterManager, int hitDirection = 0) {
@@ -82,10 +102,14 @@ public class AIZombieStateMachine : AIStateMachine {
 		if (health <= 0)
 			shouldRagdoll = true;
 
-		if (_navAgent)
-			_navAgent.speed = 0;
-
 		if (shouldRagdoll) {
+
+			if (_currentState) {
+				_currentState.OnExitState();
+				_currentState = null;
+				_currentStateType = AIStateType.None;
+			}
+
 			if (_navAgent) 
 				_navAgent.enabled = false;
 			if (_animator)

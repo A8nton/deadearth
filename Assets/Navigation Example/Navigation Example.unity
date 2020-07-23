@@ -11587,7 +11587,12 @@ MonoBehaviour:
   _sight: 1
   _hearing: 1
   _aggression: 0.5
-  _health: 100
+  _health: 0
+  _lowerBodyDamage: 0
+  _upperBodyDamage: 100
+  _upperBodyThreshold: 30
+  _limpThreshold: 30
+  _crawlThreshold: 90
   _intelligence: 1
   _satisfaction: 0.533
   _replenishRate: 2
