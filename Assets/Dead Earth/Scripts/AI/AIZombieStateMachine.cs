@@ -270,6 +270,7 @@ public class AIZombieStateMachine : AIStateMachine {
 
 		_ragdollHeadPosition = _animator.GetBoneTransform(HumanBodyBones.Head).position;
 		_ragdollFeetPosition = (animator.GetBoneTransform(HumanBodyBones.LeftFoot).position + _animator.GetBoneTransform(HumanBodyBones.RightFoot).position) * 0.5f;
+		_ragdollHipPosition = _rootBone.position;
 
 		_animator.enabled = true;
 
@@ -335,6 +336,35 @@ public class AIZombieStateMachine : AIStateMachine {
 				animatedDirection.y = 0;
 
 				transform.rotation *= Quaternion.FromToRotation(animatedDirection.normalized, ragdollDirection.normalized);
+			}
+
+			float blendAmount = Mathf.Clamp01((Time.time - _ragdollEndTime - _mecanimTransitionTime) / _reanimationBlendTime);
+
+			foreach (BodyPartSnapshot snapshot in _bodyPartSnapshots) {
+				if (snapshot.transform == _rootBone) {
+					snapshot.transform.position = Vector3.Lerp(snapshot.position, snapshot.transform.position, blendAmount);
+					snapshot.transform.rotation = Quaternion.Slerp(snapshot.rotation, snapshot.transform.rotation, blendAmount);
+				} else {
+					snapshot.transform.localRotation = Quaternion.Slerp(snapshot.LocalRotation, snapshot.transform.localRotation, blendAmount);
+				}
+			}
+
+			if (blendAmount == 1.0f) {
+				_boneControlType = AIBoneControlType.Animated;
+				if (_navAgent)
+					_navAgent.enabled = true;
+				if (_collider)
+					_collider.enabled = true;
+
+				AIState newState = null;
+				if (_states.TryGetValue(AIStateType.Alerted, out newState)) {
+					if (_currentState != null)
+						_currentState.OnExitState();
+
+					newState.OnEnterState();
+					_currentState = newState;
+					_currentStateType = AIStateType.Alerted;
+				}
 			}
 		}
 	}
