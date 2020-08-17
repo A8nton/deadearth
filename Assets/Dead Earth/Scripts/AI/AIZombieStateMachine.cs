@@ -10,7 +10,6 @@ public class BodyPartSnapshot {
 	public Transform transform;
 	public Vector3 position;
 	public Quaternion rotation;
-	public Quaternion LocalRotation;
 }
 
 // --------------------------------------------------------------------------
@@ -59,6 +58,8 @@ public class AIZombieStateMachine : AIStateMachine {
 	private int _crawlingHash = Animator.StringToHash("Crawling");
 	private int _hitTriggerHash = Animator.StringToHash("Hit");
 	private int _hitTypeHash = Animator.StringToHash("HitType");
+	private int _lowerBodyHash = Animator.StringToHash("Lower Body Damage");
+	private int _upperBodyHash = Animator.StringToHash("Upper Body Damage");
 	private int _reanimateFromBackHash = Animator.StringToHash("Reanimate From Back");
 	private int _reanimateFromFrontHash = Animator.StringToHash("Reanimate From Front");
 
@@ -114,6 +115,8 @@ public class AIZombieStateMachine : AIStateMachine {
 	protected void UpdateAnimatorDamage() {
 		if (_animator != null) {
 			_animator.SetBool(_crawlingHash, isCrawling);
+			_animator.SetInteger(_lowerBodyHash, _lowerBodyDamage);
+			_animator.SetInteger(_upperBodyHash, _upperBodyDamage);
 		}
 	}
 
@@ -195,8 +198,7 @@ public class AIZombieStateMachine : AIStateMachine {
 					hitType = 3;
 				else
 					hitType = 2;
-			}
-			else if (bodyPart.gameObject.CompareTag("Upper Body")) {
+			} else if (bodyPart.gameObject.CompareTag("Upper Body")) {
 				if (angle < -20 || hitDirection == -1)
 					hitType = 4;
 				else if (angle > 20 || hitDirection == 1)
@@ -265,7 +267,6 @@ public class AIZombieStateMachine : AIStateMachine {
 		foreach (BodyPartSnapshot snapShot in _bodyPartSnapshots) {
 			snapShot.position = snapShot.transform.position;
 			snapShot.rotation = snapShot.transform.rotation;
-			snapShot.LocalRotation = snapShot.transform.localRotation;
 		}
 
 		_ragdollHeadPosition = _animator.GetBoneTransform(HumanBodyBones.Head).position;
@@ -314,7 +315,7 @@ public class AIZombieStateMachine : AIStateMachine {
 				Vector3 animatedToRagdol = _ragdollHipPosition - _rootBone.position;
 				Vector3 newRootPosition = transform.position + animatedToRagdol;
 
-				RaycastHit[] hits = Physics.RaycastAll(newRootPosition, Vector3.down, float.MaxValue, _geometryLayers);
+				RaycastHit[] hits = Physics.RaycastAll(newRootPosition + (Vector3.up * 0.25f), Vector3.down, float.MaxValue, _geometryLayers);
 				newRootPosition.y = float.MinValue;
 
 				foreach (RaycastHit hit in hits) {
@@ -343,10 +344,8 @@ public class AIZombieStateMachine : AIStateMachine {
 			foreach (BodyPartSnapshot snapshot in _bodyPartSnapshots) {
 				if (snapshot.transform == _rootBone) {
 					snapshot.transform.position = Vector3.Lerp(snapshot.position, snapshot.transform.position, blendAmount);
-					snapshot.transform.rotation = Quaternion.Slerp(snapshot.rotation, snapshot.transform.rotation, blendAmount);
-				} else {
-					snapshot.transform.localRotation = Quaternion.Slerp(snapshot.LocalRotation, snapshot.transform.localRotation, blendAmount);
 				}
+				snapshot.transform.rotation = Quaternion.Slerp(snapshot.rotation, snapshot.transform.rotation, blendAmount);
 			}
 
 			if (blendAmount == 1.0f) {

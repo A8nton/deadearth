@@ -731,6 +731,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2dbb5dc9a521ab540b5c1ddd1b4d5907,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -659763836533178697, guid: 2dbb5dc9a521ab540b5c1ddd1b4d5907,
         type: 3}
       propertyPath: m_Layer
@@ -11594,7 +11599,7 @@ MonoBehaviour:
   _hearing: 1
   _aggression: 0.5
   _health: 100
-  _lowerBodyDamage: 0
+  _lowerBodyDamage: 95
   _upperBodyDamage: 0
   _upperBodyThreshold: 30
   _limpThreshold: 30
