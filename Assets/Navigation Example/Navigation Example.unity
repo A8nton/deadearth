@@ -247,6 +247,19 @@ MonoBehaviour:
   _parameter: LeftHand
   _bloodParticlesBurstAmount: 10
   _damageAmount: 50
+--- !u!135 &30163295
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30163292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.18
+  m_Center: {x: -0.06, y: 0, z: 0}
 --- !u!1 &47988761
 GameObject:
   m_ObjectHideFlags: 0
@@ -11599,7 +11612,7 @@ MonoBehaviour:
   _hearing: 1
   _aggression: 0.5
   _health: 100
-  _lowerBodyDamage: 95
+  _lowerBodyDamage: 0
   _upperBodyDamage: 0
   _upperBodyThreshold: 30
   _limpThreshold: 30
@@ -11640,7 +11653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turnOnSpotThreshold: 90
   _slerpSpeed: 5
-  _speed: 2
+  _speed: 1
 --- !u!114 &1423318321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11657,6 +11670,7 @@ MonoBehaviour:
   _waypointAngleThreshold: 25
   _threatAngleThreshold: 10
   _directionChangeTime: 1.5
+  _slerpSpeed: 45
 --- !u!114 &1423318322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12076,6 +12090,19 @@ MonoBehaviour:
   _parameter: RightHand
   _bloodParticlesBurstAmount: 10
   _damageAmount: 50
+--- !u!135 &1577082478
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577082475}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.18
+  m_Center: {x: 0.06, y: 0, z: 0}
 --- !u!1 &1692173833
 GameObject:
   m_ObjectHideFlags: 0
@@ -13311,6 +13338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2054789858}
   - component: {fileID: 2054789859}
+  - component: {fileID: 2054789860}
   m_Layer: 10
   m_Name: Mouth Trigger
   m_TagString: Untagged
@@ -13347,3 +13375,17 @@ MonoBehaviour:
   _parameter: Mouth
   _bloodParticlesBurstAmount: 30
   _damageAmount: 10
+--- !u!136 &2054789860
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054789857}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.08
+  m_Height: 0.45
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.24}
