@@ -11612,7 +11612,7 @@ MonoBehaviour:
   _hearing: 1
   _aggression: 0.5
   _health: 100
-  _lowerBodyDamage: 0
+  _lowerBodyDamage: 93
   _upperBodyDamage: 0
   _upperBodyThreshold: 30
   _limpThreshold: 30
@@ -11705,7 +11705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc12b1ea994e81e4ea971976f3a5eef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
+  _speed: 0.78
   _lookAtWeight: 0.7
   _lookAtAngleThreshold: 15
   _slerpSpeed: 5

@@ -327,8 +327,14 @@ public class AIZombieStateMachine : AIStateMachine {
 				}
 
 				NavMeshHit navMeshHit;
+				Vector3 baseOffset = Vector3.zero;
+				if (_navAgent)
+					baseOffset.y = _navAgent.baseOffset;
+
 				if (NavMesh.SamplePosition(newRootPosition, out navMeshHit, 2.0f, NavMesh.AllAreas)) {
-					transform.position = navMeshHit.position;
+					transform.position = navMeshHit.position + baseOffset;
+				} else {
+					transform.position = newRootPosition + baseOffset;
 				}
 
 				Vector3 ragdollDirection = _ragdollHeadPosition - _ragdollFeetPosition;
