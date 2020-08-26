@@ -64,6 +64,9 @@ public class AIZombieStateMachine : AIStateMachine {
 	private int _reanimateFromFrontHash = Animator.StringToHash("Reanimate From Front");
 	private int _stateHash = Animator.StringToHash("State");
 
+	private int _upperBodyLayer = -1;
+	private int _lowerBodyLayer = -1;
+
 	public float replenishRate { get => _replenishRate; }
 	public float fieldOfView { get { return _fieldOfView; } }
 	public float hearing { get { return _hearing; } }
@@ -87,6 +90,11 @@ public class AIZombieStateMachine : AIStateMachine {
 
 	protected override void Start() {
 		base.Start();
+
+		if (_animator != null) {
+			_lowerBodyLayer = _animator.GetLayerIndex("Lower Body");
+			_upperBodyLayer = _animator.GetLayerIndex("Upper Body");
+		}
 
 		if (_rootBone != null) {
 			Transform[] transforms = _rootBone.GetComponentsInChildren<Transform>();
@@ -116,6 +124,14 @@ public class AIZombieStateMachine : AIStateMachine {
 
 	protected void UpdateAnimatorDamage() {
 		if (_animator != null) {
+
+			if (_lowerBodyLayer != -1) {
+				_animator.SetLayerWeight(_lowerBodyLayer, (_lowerBodyDamage > _limpThreshold && _lowerBodyDamage < _crawlThreshold) ? 1.0f : 0.0f);
+			}
+			if (_upperBodyLayer != -1) {
+				_animator.SetLayerWeight(_upperBodyLayer, (_upperBodyDamage > _upperBodyThreshold && _lowerBodyDamage < _crawlThreshold) ? 1.0f : 0.0f);
+			}
+
 			_animator.SetBool(_crawlingHash, isCrawling);
 			_animator.SetInteger(_lowerBodyHash, _lowerBodyDamage);
 			_animator.SetInteger(_upperBodyHash, _upperBodyDamage);
