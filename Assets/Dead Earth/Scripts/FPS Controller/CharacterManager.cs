@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour {
 
-    [SerializeField]
-    private CapsuleCollider _meleeTrigger;
-    [SerializeField]
-    private CameraBloodEffect _cameraBloodEffect;
-    [SerializeField]
-    private Camera _camera;
-    [SerializeField]
-    private float _health = 100.0f;
+    [SerializeField] private CapsuleCollider _meleeTrigger;
+    [SerializeField] private CameraBloodEffect _cameraBloodEffect;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private float _health = 100.0f;
+    [SerializeField] private AISoundEmitter _soundEmitter;
+    [SerializeField] private float _walkRadius = 0.0f;
+    [SerializeField] private float _runRadius = 5.0f;
+    [SerializeField] private float _landingRadius = 10.0f;
+    [SerializeField] private float _bloodRadiusScale = 7.0f;
 
     private Collider _collider;
     private FPSController _fpsController;
@@ -62,7 +63,7 @@ public class CharacterManager : MonoBehaviour {
         if (isSomethingHit) {
             AIStateMachine stateMachine = _gameSceneManager.GetAIStateMachine(hit.rigidbody.GetInstanceID());
             if (stateMachine) {
-                stateMachine.TakeDamage(hit.point, ray.direction * 1.0f, 50, hit.rigidbody, this, 0);
+                stateMachine.TakeDamage(hit.point, ray.direction * 1.0f, 25, hit.rigidbody, this, 0);
             }
         }
     }
@@ -70,6 +71,15 @@ public class CharacterManager : MonoBehaviour {
     public void Update() {
         if (Input.GetMouseButtonDown(0)) {
             DoDamage();
+        }
+
+        if (_fpsController && _soundEmitter != null) {
+            float newRadius = Mathf.Max(_walkRadius, (100.0f - _health) / _bloodRadiusScale);
+            switch(_fpsController.movementStatus) {
+                case PlayerMoveStatus.Landing : newRadius = Mathf.Max(newRadius, _landingRadius); break;
+                case PlayerMoveStatus.Running : newRadius = Mathf.Max(newRadius, _runRadius); break;
+            }
+            _soundEmitter.SetRadius(newRadius);
         }
     }
 }

@@ -28,7 +28,7 @@ public class AIZombieState_Patrol1 : AIZombieState {
 	public override void OnEnterState() {
 		Debug.Log("Entering Patrol State");
 		base.OnEnterState();
-		if (_zombieStateMachine == null)
+		if (_zombieStateMachine == null || _zombieStateMachine.navAgent == null)
 			return;
 
 		_zombieStateMachine.NavAgentControl(true, false);
